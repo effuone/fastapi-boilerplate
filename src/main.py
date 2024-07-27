@@ -7,6 +7,7 @@ from starlette.middleware.cors import CORSMiddleware
 
 from src.config import app_configs, settings
 
+from src.products import endpoints as product_endpoints
 
 @asynccontextmanager
 async def lifespan(_application: FastAPI) -> AsyncGenerator:
@@ -36,3 +37,5 @@ if settings.ENVIRONMENT.is_deployed:
 @app.get("/healthcheck", include_in_schema=False)
 async def healthcheck() -> dict[str, str]:
     return {"status": "ok"}
+
+app.include_router(product_endpoints.router, prefix="/api", tags=["products"])
