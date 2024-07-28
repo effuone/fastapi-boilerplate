@@ -10,6 +10,9 @@ run *args:
 mm *args:
   venv/bin/poetry run alembic revision --autogenerate -m "{{args}}"
 
+seed: 
+  chmod +x alembic/sql/seed.sh && ./alembic/sql/seed.sh
+
 migrate:
   venv/bin/poetry run alembic upgrade head
 
